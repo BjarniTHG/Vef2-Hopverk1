@@ -1,0 +1,1 @@
+Meðlimir: Bjarni, Eygló, þorri
