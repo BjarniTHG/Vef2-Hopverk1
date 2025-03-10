@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "hono": "^4.7.4",
+    "prisma": "^6.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10"
+  }
+}
