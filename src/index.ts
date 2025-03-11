@@ -1,9 +1,12 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import authRoutes from './routes/authRoutes'
 
 export const app = new Hono()
 app.use('/*', cors())
+
+app.route("/routes", authRoutes)
 
 app.get('/', (c) => {
 	const data: { message: string } = {
