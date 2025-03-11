@@ -10,7 +10,11 @@
   "dependencies": {
     "@hono/node-server": "^1.13.8",
     "@prisma/client": "^6.4.1",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
     "hono": "^4.7.4",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^6.4.1",
     "zod": "^3.24.2"
   },
@@ -23,7 +27,9 @@
     "globals": "^16.0.0",
     "jest": "^29.7.0",
     "jest-environment-node": "^29.7.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.7.1",
+    "typescript": "^5.8.2",
     "typescript-eslint": "^8.26.0"
   }
 }
