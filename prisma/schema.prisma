@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +8,202 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  isAdmin      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  favorites    FavoriteChampion[]
+  comments     Comment[]
+}
+
+model Champion {
+  id           String    @id // Champion ID from LoL API (e.g., "Aatrox")
+  key          String    @unique // Numeric key from LoL API
+  name         String
+  title        String
+  blurb        String    @db.Text
+  partype      String    // Resource type (Mana, Energy, Blood Well, etc.)
+  
+  // Info ratings
+  attack       Int
+  defense      Int
+  magic        Int
+  difficulty   Int
+  
+  // Stats
+  hp           Float
+  hpperlevel   Float
+  mp           Float
+  mpperlevel   Float
+  movespeed    Int
+  armor        Float
+  armorperlevel Float
+  spellblock   Float
+  spellblockperlevel Float
+  attackrange  Int
+  hpregen      Float
+  hpregenperlevel Float
+  mpregen      Float
+  mpregenperlevel Float
+  crit         Float
+  critperlevel Float
+  attackdamage Float
+  attackdamageperlevel Float
+  attackspeedperlevel Float
+  attackspeed  Float
+  
+  // Image data
+  imageUrl     String
+  
+  version      String    // Version of champion data
+  
+  // Relations
+  tags         ChampionTag[]
+  abilities    Ability[]
+  skins        Skin[]
+  favorites    FavoriteChampion[]
+  comments     Comment[]
+}
+
+model ChampionTag {
+  id         Int       @id @default(autoincrement())
+  name       String    // Fighter, Tank, Mage, etc.
+  championId String
+  champion   Champion  @relation(fields: [championId], references: [id], onDelete: Cascade)
+
+  @@unique([championId, name])
+}
+
+model Ability {
+  id          Int      @id @default(autoincrement())
+  championId  String
+  name        String
+  description String    @db.Text
+  tooltip     String?   @db.Text
+  abilityType String    // "passive" or "spell"
+  slot        String?   // Q, W, E, R (null for passive)
+  cooldownBurn String?  // "12/11/10/9/8"
+  costBurn    String?   // "60/65/70/75/80"
+  rangeBurn   String?   // Range of ability as string
+  imageUrl    String
+  champion    Champion  @relation(fields: [championId], references: [id], onDelete: Cascade)
+}
+
+model Skin {
+  id          Int      @id @default(autoincrement())
+  skinId      String   // Skin ID from LoL API
+  num         Int      // Numeric ID of the skin
+  championId  String
+  name        String
+  chromas     Boolean  @default(false)
+  imageUrl    String?
+  champion    Champion @relation(fields: [championId], references: [id], onDelete: Cascade)
+}
+
+model Item {
+  id          String    @id // Item ID from LoL API (e.g., "2502")
+  name        String
+  description String    @db.Text
+  plaintext   String?
+  colloq      String?
+  
+  // Gold information
+  goldBase        Int
+  goldTotal       Int
+  goldSell        Int
+  isPurchasable   Boolean
+  
+  // Image information
+  imageUrl    String
+  
+  // Relations
+  stats        ItemStat[]
+  tags         ItemTag[]
+  
+  // Build path
+  builds_from   ItemBuildPath[] @relation("BuildsFrom")
+  builds_into   ItemBuildPath[] @relation("BuildsInto")
+  
+  // Maps availability as JSON
+  maps         Json
+  
+  version      String
+}
+
+model ItemStat {
+  id          Int      @id @default(autoincrement())
+  itemId      String
+  name        String   // FlatHPPoolMod, FlatMPPoolMod, etc.
+  value       Float
+  item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([itemId, name])
+}
+
+model ItemTag {
+  id          Int      @id @default(autoincrement())
+  itemId      String
+  name        String   // Health, Mana, SpellDamage, etc.
+  item        Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([itemId, name])
+}
+
+model ItemBuildPath {
+  id          Int      @id @default(autoincrement())
+  fromItemId  String
+  toItemId    String
+  fromItem    Item     @relation("BuildsFrom", fields: [fromItemId], references: [id], onDelete: Cascade)
+  toItem      Item     @relation("BuildsInto", fields: [toItemId], references: [id], onDelete: Cascade)
+
+  @@unique([fromItemId, toItemId])
+}
+
+model SummonerSpell {
+  id          Int      @id @default(autoincrement())
+  spellId     String   @unique // Spell ID from LoL API
+  name        String
+  description String    @db.Text
+  cooldown    Int       // Cooldown in seconds
+  range       Int?
+  key         String    // Key from LoL API
+  imageUrl    String
+  modes       SpellGameMode[]
+}
+
+model SpellGameMode {
+  id              Int           @id @default(autoincrement())
+  summonerSpellId Int
+  mode            String        // CLASSIC, ARAM, etc.
+  summonerSpell   SummonerSpell @relation(fields: [summonerSpellId], references: [id], onDelete: Cascade)
+
+  @@unique([summonerSpellId, mode])
+}
+
+model FavoriteChampion {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  championId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  champion   Champion @relation(fields: [championId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+
+  @@unique([userId, championId])
+}
+
+model Comment {
+  id         Int      @id @default(autoincrement())
+  content    String   @db.Text
+  userId     Int
+  championId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  champion   Champion @relation(fields: [championId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }

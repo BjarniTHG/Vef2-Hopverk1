@@ -1,6 +1,9 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import itemRouter from './routes/itemRoutes'
+import testRouter from './routes/testRoutes'
+import championRouter from './routes/championRoutes'
 
 export const app = new Hono()
 app.use('/*', cors())
@@ -11,6 +14,10 @@ app.get('/', (c) => {
 	}
 	return c.json(data)
 })
+
+app.route('/items', itemRouter)
+app.route('/test', testRouter)
+app.route('/champions', championRouter)
 
 serve({
 	fetch: app.fetch,
