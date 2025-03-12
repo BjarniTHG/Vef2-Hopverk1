@@ -1,12 +1,18 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import itemRouter from './routes/itemRoutes'
+import testRouter from './routes/testRoutes'
+import championRouter from './routes/championRoutes'
 import authRoutes from './routes/authRoutes'
 
 export const app = new Hono()
 app.use('/*', cors())
 
 app.route("/routes", authRoutes)
+app.route('/items', itemRouter)
+app.route('/test', testRouter)
+app.route('/champions', championRouter)
 
 // GET á / skal skila lista af slóðum í mögulegar aðgerðir.
 // placeholder aðgerðir, þar til meira kemur
