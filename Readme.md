@@ -26,44 +26,44 @@ CLOUDINARY_API_SECRET="your-api-secret"
    git clone https://github.com/BjarniTHG/Vef2-Hopverk1.git
    cd Vef2-Hopverk1
 
-Settu upp nauðsynleg pakka:
+2. Settu upp nauðsynleg pakka:
 npm install
 
-Settu upp gagnagrunninn:
+3. Settu upp gagnagrunninn:
 npm run setup
 
-Keyrðu þróunarþjóninn:
+4. Keyrðu þróunarþjóninn:
 npm run dev
 
-Fyrir raun:
+5. Fyrir raun:
 npm run start
 
-Admin Notendagögn
+- Admin Notendagögn
 Netfang: admin@example.com
 Notandanafn: admin
 Lykilorð: AdminPassword123
 
-Auðkenning
+- Auðkenning
 Skrá nýjan notanda: POST /routes/register
 Innskrá: POST /routes/login
 
-Notendastjórnun
+- Notendastjórnun
 Uppfæra prófílmynd: POST /account/upload
 Uppfæra notendanafn: POST /account/update-username
 Uppfæra lykilorð: POST /account/update-password
 
-Hetjur (Champions)
+- Hetjur (Champions)
 Sækja allar hetjur: GET /champions
 Sækja tiltekið hetju: GET /champions/:id
 Synca hetjur (Admin): POST /champions/sync
 Merkja/afmerkja favorit: POST /champions/:id/favorite og DELETE /champions/:id/favorite
 
-Atriði (Items)
+- Atriði (Items)
 Sækja öll atriði: GET /items
 Sækja tiltekið atriði: GET /items/:id
 Synca atriði (Admin): POST /items/sync
 
-Aðrir endapunktar
+- Aðrir endapunktar
 API yfirlit: GET /
 Notendalisti (þróun): GET /users
 Tiltekinn notandi (þróun): GET /users/:id
