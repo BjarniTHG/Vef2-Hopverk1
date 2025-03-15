@@ -39,34 +39,34 @@ npm run dev
 npm run start
 
 - Admin Notendagögn
-Netfang: admin@example.com
-Notandanafn: admin
-Lykilorð: AdminPassword123
+* Netfang: admin@example.com
+* Notandanafn: admin
+* Lykilorð: AdminPassword123
 
 - Auðkenning
-Skrá nýjan notanda: POST /routes/register
-Innskrá: POST /routes/login
+* Skrá nýjan notanda: POST /routes/register
+* Innskrá: POST /routes/login
 
 - Notendastjórnun
-Uppfæra prófílmynd: POST /account/upload
-Uppfæra notendanafn: POST /account/update-username
-Uppfæra lykilorð: POST /account/update-password
+* Uppfæra prófílmynd: POST /account/upload
+* Uppfæra notendanafn: POST /account/update-username
+* Uppfæra lykilorð: POST /account/update-password
 
 - Hetjur (Champions)
-Sækja allar hetjur: GET /champions
-Sækja tiltekið hetju: GET /champions/:id
-Synca hetjur (Admin): POST /champions/sync
-Merkja/afmerkja favorit: POST /champions/:id/favorite og DELETE /champions/:id/favorite
+* Sækja alla champions: GET /champions
+* Sækja tiltekin champion: GET /champions/:id
+* Synca champions (Admin): POST /champions/sync
+* Merkja/afmerkja favorite: POST /champions/:id/favorite og DELETE /champions/:id/favorite
 
 - Atriði (Items)
-Sækja öll atriði: GET /items
-Sækja tiltekið atriði: GET /items/:id
-Synca atriði (Admin): POST /items/sync
+* Sækja öll items: GET /items
+* Sækja tiltekið item: GET /items/:id
+* Synca items (Admin): POST /items/sync
 
 - Aðrir endapunktar
-API yfirlit: GET /
-Notendalisti (þróun): GET /users
-Tiltekinn notandi (þróun): GET /users/:id
+* API yfirlit: GET /
+* Notendalisti (þróun): GET /users
+* Tiltekinn notandi (þróun): GET /users/:id
 
 Dæmi um requestur:
 
@@ -93,10 +93,10 @@ GET http://localhost:3000/items?page=1&limit=20
 GET http://localhost:3000/items/1001
 
 - Takmörkun á beiðnum
-100 beiðnir á mínútu fyrir hvert IP
+* 100 beiðnir á mínútu fyrir hvert IP
 
 - Öryggiseiginleikar
-JWT token auðkenning
-Lykilorð dulkóðuð með bcrypt
-Inntaksskoðun og hreinsun
-rate limiting
+* JWT token auðkenning
+* Lykilorð dulkóðuð með bcrypt
+* Inntaksskoðun og hreinsun
+* rate limiting
