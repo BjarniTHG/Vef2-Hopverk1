@@ -72,36 +72,6 @@ app.use('*', async (c, next) => {
 	}
 })
 
-const mockUsers = [
-    { id: 1, name: "Eyglo", email: "eyglo@example.com" },
-    { id: 2, name: "Bjarni", email: "bjarni@example.com" },
-    { id: 3, name: "Þorri", email: "thorri@example.com"}
-];
-
-app.get('/users', (c) => {
-    return c.json(mockUsers, 200)
-})
-
-app.get("/users/:id", (c) => {
-    const id = Number(c.req.param("id"));
-
-    // Finnum notanda í mock gögnunum
-    const user = mockUsers.find((u) => u.id === id);
-
-    // Skila 404 ef notandinn finnst ekki
-    if (!user) {
-        return c.json({ error: "User not found" }, 404);
-    }
-
-    return c.json(user);
-});
-
-// Ef beðið er um eitthvað sem ekki er til skal skila 404.
-// Ef beðið er um einingu eða reynt að framkvæma aðgerð sem ekki er leyfi fyrir skal skila 401.
-// Allar niðurstöður sem geta skilað mörgum færslum (fleiri en 10) skulu skila síðum.
-// Ef villur koma upp skal skila 400 með viðeigandi villuskilaboðum.
-// Huga að samræmi á heitum, slóðum og villuskilaboðum.
-
 serve({
 	fetch: app.fetch,
 	port: 3000
