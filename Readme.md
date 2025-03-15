@@ -15,11 +15,11 @@
 ### Umhverfisbreytur
 Búðu til skrána **.env** í rót verkefnisins og settu inn eftirfarandi:
 
-DATABASE_URL="postgresql://vef2_hopverk1_user:gNS94hxNhqYhQPaNPV571gTtIQ6BwZas@dpg-cv840l52ng1s73a1eoog-a.frankfurt-postgres.render.com/vef2_hopverk1" 
-JWT_SECRET="your-secret-key" 
-CLOUDINARY_CLOUD_NAME="your-cloud-name" 
-CLOUDINARY_API_KEY="your-api-key" 
-CLOUDINARY_API_SECRET="your-api-secret"
+* DATABASE_URL="postgresql://vef2_hopverk1_user:gNS94hxNhqYhQPaNPV571gTtIQ6BwZas@dpg-cv840l52ng1s73a1eoog-a.frankfurt-postgres.render.com/vef2_hopverk1" 
+* JWT_SECRET="your-secret-key" 
+* CLOUDINARY_CLOUD_NAME="your-cloud-name" 
+* CLOUDINARY_API_KEY="your-api-key" 
+* CLOUDINARY_API_SECRET="your-api-secret"
 
 ### Uppsetningarleiðbeiningar
 1. Klóna verkefnið:
