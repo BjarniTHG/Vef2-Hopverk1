@@ -8,8 +8,10 @@ export const registerUser = async (email: string, password: string) => {
     return await prisma.user.create({
         data: {
             email,
+
             passwordHash: hashedPassword,
             username: email.split('@')[0]
+
         }
     });
 };
@@ -18,6 +20,7 @@ export const loginUser = async (email: string, password: string) => {
     const user = await prisma.user.findUnique({
         where: { email }
     });
+
     if (user && await comparePasswords(password, user.passwordHash)) {
         return user;
     }
