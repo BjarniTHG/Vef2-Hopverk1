@@ -8,7 +8,10 @@ export const registerUser = async (email: string, password: string) => {
     return await prisma.user.create({
         data: {
             email,
-            password: hashedPassword 
+
+            passwordHash: hashedPassword,
+            username: email.split('@')[0]
+
         }
     });
 };
@@ -17,8 +20,31 @@ export const loginUser = async (email: string, password: string) => {
     const user = await prisma.user.findUnique({
         where: { email }
     });
-    if (user && await comparePasswords(password, user.password)) {
+
+    if (user && await comparePasswords(password, user.passwordHash)) {
         return user;
     }
     throw new Error('Notendanafn eða lykilorð er ekki rétt');
+};
+
+export const createAdminUser = async () => {
+    const adminEmail = 'admin@example.com';
+    const adminPassword = 'AdminPassword123';
+
+    const existingAdmin = await prisma.user.findUnique({
+        where: { email: adminEmail }
+    });
+    
+    if (!existingAdmin) {
+        const hashedPassword = await hashPassword(adminPassword);
+        await prisma.user.create({
+            data: {
+                email: adminEmail,
+                username: 'admin',
+                passwordHash: hashedPassword,
+                isAdmin: true
+            }
+        });
+        console.log('Admin aðgangur stofnaður');
+    }
 };
