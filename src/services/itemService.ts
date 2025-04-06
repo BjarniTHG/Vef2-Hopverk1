@@ -105,16 +105,21 @@ const syncItemTags = async (itemId: string, tags: string[]): Promise<void> => {
 const syncBuildPaths = async (itemsData: ItemsData): Promise<void> => {
   await prisma.itemBuildPath.deleteMany({})
   
+  const createdPaths = new Set<string>();
+
   for (const [itemId, itemData] of Object.entries(itemsData.data)) {
     if (itemData.from && itemData.from.length > 0) {
       for (const fromItemId of itemData.from) {
+        const pathKey = `${fromItemId}-${itemId}`;
+        if (createdPaths.has(pathKey)) continue;
         try {
           await prisma.itemBuildPath.create({
             data: {
               fromItemId,
               toItemId: itemId
             }
-          })
+          });
+          createdPaths.add(pathKey);
         } catch (error) {
           console.warn(`Couldn't create build path from ${fromItemId} to ${itemId}:`, error)
         }
