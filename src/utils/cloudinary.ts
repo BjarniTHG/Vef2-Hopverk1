@@ -6,7 +6,13 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
   });
 
+<<<<<<< HEAD
   export const uploadToCloudinary = (fileBuffer: Buffer): Promise<unknown> => {
+=======
+
+  export const uploadToCloudinary = (fileBuffer: Buffer): Promise<unknown> => {
+
+>>>>>>> 3b6de3ba7d0415bd4521dc2c219396615070d45d
     return new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         { folder: "profile_pics" },

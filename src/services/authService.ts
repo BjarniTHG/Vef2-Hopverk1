@@ -8,7 +8,7 @@ export const registerUser = async (email: string, password: string) => {
     return await prisma.user.create({
         data: {
             email,
-            passwordHash: hashedPassword,
+            password: hashedPassword,
             username: email.split('@')[0]
         }
     });
@@ -18,7 +18,7 @@ export const loginUser = async (email: string, password: string) => {
     const user = await prisma.user.findUnique({
         where: { email }
     });
-    if (user && await comparePasswords(password, user.passwordHash)) {
+    if (user && await comparePasswords(password, user.password)) {
         return user;
     }
     throw new Error('Notendanafn eða lykilorð er ekki rétt');
@@ -38,7 +38,7 @@ export const createAdminUser = async () => {
             data: {
                 email: adminEmail,
                 username: 'admin',
-                passwordHash: hashedPassword,
+                password: hashedPassword,
                 isAdmin: true
             }
         });

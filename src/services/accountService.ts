@@ -27,13 +27,13 @@ export const changePassword = async (
     if (!user) {
       throw new Error("Notandi finnst ekki");
     }
-    const isValid = await comparePasswords(currentPassword, user.passwordHash);
+    const isValid = await comparePasswords(currentPassword, user.password);
     if (!isValid) {
       throw new Error("Vitlaust lykilorð");
     }
     const newHashedPassword = await hashPassword(newPassword);
     return await prisma.user.update({
       where: { id: userId },
-      data: { passwordHash: newHashedPassword },
+      data: { password: newHashedPassword },
     });
   };
