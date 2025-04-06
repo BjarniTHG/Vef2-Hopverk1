@@ -8,12 +8,6 @@ import authRoutes from './routes/authRoutes'
 import accountRoutes from './routes/accountRoutes'
 import { createAdminUser } from './services/authService'
 import { rateLimiter } from './middleware/rateLimiter'
-<<<<<<< HEAD
-
-createAdminUser().catch(console.error);
-=======
-import { describe } from 'node:test'
->>>>>>> 3b6de3ba7d0415bd4521dc2c219396615070d45d
 
 createAdminUser().catch(console.error);
 
@@ -36,8 +30,6 @@ app.route('/items', itemRouter)
 app.route('/test', testRouter)
 app.route('/champions', championRouter)
 app.route('/account', accountRoutes)
-<<<<<<< HEAD
-=======
 
 app.get('/', (c) => {
   const data = {
@@ -110,7 +102,7 @@ app.get("/users/:id", (c) => {
 // Ef villur koma upp skal skila 400 með viðeigandi villuskilaboðum.
 // Huga að samræmi á heitum, slóðum og villuskilaboðum.
 
-const availableRoutes = [
+/*const availableRoutes = [
 	{ method: "GET",  path: "/champions", description: "Get all champions" },
 	{ method: "GET",  path: "/champions/:id", description: "Get champion by id" },
 	{ method: "GET", path: "/champions?page=1&limit=20", description: "pagenation 1 to 31 with limit = 20"},
@@ -118,8 +110,7 @@ const availableRoutes = [
 	{ method: "GET",  path: "/items/:id", description: "Get item by id" },
 	{ method: "GET", path: "/items?page=1&limit=20", description: "pagenation 1 to 31 with limit=20"},
   ]
->>>>>>> 3b6de3ba7d0415bd4521dc2c219396615070d45d
-
+*/
 app.get('/', (c) => {
   const data = {
     message: 'Hopverkefni 1 í veforritun 2',
