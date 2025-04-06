@@ -20,6 +20,7 @@ model User {
   updatedAt    DateTime @updatedAt
   favorites    FavoriteChampion[]
   comments     Comment[]
+  profilePicture  String
 }
 
 model Champion {
